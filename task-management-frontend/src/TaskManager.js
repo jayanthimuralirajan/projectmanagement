@@ -3,6 +3,8 @@ import axios from "axios";
 import { UserContext } from "./UserContext";
 import { FaTrash, FaEdit, FaPlus } from "react-icons/fa";
 
+import { useNavigate } from "react-router-dom";
+
 // Import Chart components from react-chartjs-2
 import { Doughnut, Bar } from 'react-chartjs-2';
 // Import and register Chart.js components
@@ -35,14 +37,14 @@ const EMPLOYEE_API_URL = "http://localhost:8000/employees/";
 const TaskManager = () => {
   const [tasks, setTasks] = useState([]);
   const [employees, setEmployees] = useState([]);
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext); 
   const [showAddTask, setShowAddTask] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   // FIX: These lines were incorrect. They should be useState calls.
   const [currentTask, setCurrentTask] = useState(null); // Corrected
   // ...
-
+  const navigate = useNavigate();
   const [taskData, setTaskData] = useState({
     assignedTo: user?.id || null,
     title: "",
@@ -59,6 +61,7 @@ const TaskManager = () => {
 
   // FIX: This line was incorrect. It should be a useState call.
   const [currentEmployee, setCurrentEmployee] = useState(null); // Corrected
+ 
   const [employeeData, setEmployeeData] = useState({
     userName: "",
     emailId: "",
@@ -70,7 +73,11 @@ const TaskManager = () => {
   const [selectedTaskStatusFilter, setSelectedTaskStatusFilter] = useState(''); // For admin task status filter
  
   // --- END MODIFIED STATE ---
-
+  const handleLogout = () => {
+    setUser(null); 
+    // localStorage.removeItem('user'); // Optional: If you store user in localStorage
+    navigate('/'); 
+  };
   useEffect(() => {
     if (user && user.userName === "admin") {
       fetchAllTasks();
@@ -80,6 +87,8 @@ const TaskManager = () => {
     }
   }, [user]);
 
+  
+  
   const fetchTasks = async () => {
     if (!user) return;
 
@@ -293,6 +302,7 @@ const TaskManager = () => {
   // --- MODIFIED FILTERED TASKS LOGIC ---
   const filteredTasks = tasks.filter((task) => {
     // Get a fresh current date for each filter evaluation
+    if (!user) return false; 
     const now = new Date();
     now.setHours(0, 0, 0, 0); // Compare dates without time
 
@@ -532,11 +542,19 @@ const TaskManager = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-r from-indigo-400 to-cyan-400 p-4 sm:p-6 overflow-hidden">
-      <div className="flex justify-between items-center px-2 sm:px-5 py-3">
-        <h1 className="text-xl sm:text-2xl font-bold text-white">
-          Welcome, {user ? user.userName : "Guest"}! 👋
-        </h1>
-      </div>
+    {/* Header section with logout button */}
+    <div className="flex justify-between items-center px-2 sm:px-5 py-3">
+      <h1 className="text-xl sm:text-2xl font-bold text-white">
+        Welcome, {user ? user.userName : "Guest"}! 👋
+      </h1>
+      {/* Logout Button */}
+      <button
+        onClick={handleLogout}
+        className="bg-gradient-to-r from-indigo-500 to-cyan-500 text-sm sm:text-base text-white px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-transform transform hover:scale-105"
+      >
+        Logout
+      </button>
+    </div>
 
       {user && user.userName === "admin" ? (
         <div className="flex flex-col lg:flex-row gap-6 p-2 sm:p-6 overflow-auto">

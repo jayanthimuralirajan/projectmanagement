@@ -1,9 +1,11 @@
+
 import React, { useState } from 'react';
 import { registerUser } from './api/api';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Register = () => {
   const [user, setUser] = useState({ emailId: '', userName: '', password: '' });
+  const navigate = useNavigate(); // Initialize the hook
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -14,8 +16,10 @@ const Register = () => {
     try {
       await registerUser(user);
       alert('Registration successful!');
+      navigate('/'); // Redirect to the login page after a successful registration
     } catch (error) {
       console.error('Registration failed:', error);
+      alert('Registration failed. Please try again.'); // Add a user-friendly alert for failure
     }
   };
 
@@ -64,5 +68,4 @@ const Register = () => {
 };
 
 export default Register;
-
 

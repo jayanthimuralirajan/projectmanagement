@@ -59,12 +59,12 @@ const Login = () => {
             required
             className="w-full md:p-3 sm:p-2 sm:text-base md:text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <button
-            type="submit"
-            className="w-full sm:text-base md:text-lg md:p-3 sm:p-2 bg-gradient-to-r from-indigo-400 to-cyan-400 text-white rounded-lg hover:bg-blue-600 transition duration-200"
-          >
-            <NavLink to="/Task">Login</NavLink> 
-          </button>
+         <button
+  type="submit"
+  className="w-full sm:text-base md:text-lg md:p-3 sm:p-2 bg-gradient-to-r from-indigo-400 to-cyan-400 text-white rounded-lg hover:bg-blue-600 transition duration-200"
+>
+  Login
+</button>
         </form>
         <div className="text-center mt-4">
           <span className="md:text-sm sm:text-xs text-blue-500 hover:underline cursor-pointer">Forgot password?</span>
