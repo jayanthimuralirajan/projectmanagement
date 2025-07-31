@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-jxy9xji&fsw8h$(2!c)=pdgkg5zs%(_q1q3mh0t0%c4725)r-h
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['TaskManagement.onrender.com'] # Replace with your app name
+ALLOWED_HOSTS = ['projectmanagement-tyik.onrender.com']
 
 # Application definition
 
