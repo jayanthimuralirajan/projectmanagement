@@ -41,14 +41,13 @@ class TaskView(APIView):
             return Response({'message': 'Task deleted successfully'}, status=status.HTTP_200_OK)
         except Task.DoesNotExist:
             return Response({'error': 'Task not found'}, status=status.HTTP_404_NOT_FOUND)
-
 class RegisterUserView(APIView):
     def post(self, request):
         data = request.data
         if 'userName' not in data or 'emailId' not in data or 'password' not in data:
             return Response({'error': 'Email and password are required'}, status=status.HTTP_400_BAD_REQUEST)
         
-        # Check if user with that email already exists
+        # Check if a user with that email already exists
         if UserLogin.objects.filter(emailId=data['emailId']).exists():
             return Response({'error': 'Email already registered'}, status=status.HTTP_400_BAD_REQUEST)
             
@@ -63,6 +62,7 @@ class RegisterUserView(APIView):
         
         # This will now return the detailed validation errors from the serializer
         return Response({'error': 'Registration failed', 'details': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
 # class RegisterUserView(APIView):
 #     def post(self, request):
 #         data = request.data
