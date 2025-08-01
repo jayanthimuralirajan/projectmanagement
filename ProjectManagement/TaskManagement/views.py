@@ -45,20 +45,41 @@ class TaskView(APIView):
 class RegisterUserView(APIView):
     def post(self, request):
         data = request.data
-        print("data:",data['password'])
         if 'userName' not in data or 'emailId' not in data or 'password' not in data:
-            print(data)
             return Response({'error': 'Email and password are required'}, status=status.HTTP_400_BAD_REQUEST)
-        # print(data)
+        
+        # Check if user with that email already exists
+        if UserLogin.objects.filter(emailId=data['emailId']).exists():
+            return Response({'error': 'Email already registered'}, status=status.HTTP_400_BAD_REQUEST)
+            
         hashed_password = make_password(data['password'])
-        print(hashed_password)
         data['password'] = hashed_password
+        
         serializer = UserLoginSerializer(data=data)
 
         if serializer.is_valid():
             serializer.save()
             return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        # This will now return the detailed validation errors from the serializer
+        return Response({'error': 'Registration failed', 'details': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+# class RegisterUserView(APIView):
+#     def post(self, request):
+#         data = request.data
+#         print("data:",data['password'])
+#         if 'userName' not in data or 'emailId' not in data or 'password' not in data:
+#             print(data)
+#             return Response({'error': 'Email and password are required'}, status=status.HTTP_400_BAD_REQUEST)
+#         # print(data)
+#         hashed_password = make_password(data['password'])
+#         print(hashed_password)
+#         data['password'] = hashed_password
+#         serializer = UserLoginSerializer(data=data)
+
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginUserView(APIView):
     def post(self, request):
