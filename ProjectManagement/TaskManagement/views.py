@@ -41,28 +41,30 @@ class TaskView(APIView):
             return Response({'message': 'Task deleted successfully'}, status=status.HTTP_200_OK)
         except Task.DoesNotExist:
             return Response({'error': 'Task not found'}, status=status.HTTP_404_NOT_FOUND)
+
 class RegisterUserView(APIView):
     def post(self, request):
         data = request.data
+
+        # Print the raw data received from the frontend
+        print("Received data from frontend:", data)
+
         if 'userName' not in data or 'emailId' not in data or 'password' not in data:
             return Response({'error': 'Email and password are required'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Check if a user with that email already exists
-        if UserLogin.objects.filter(emailId=data['emailId']).exists():
-            return Response({'error': 'Email already registered'}, status=status.HTTP_400_BAD_REQUEST)
-            
+
+        # Hash the password before saving
         hashed_password = make_password(data['password'])
         data['password'] = hashed_password
-        
+
         serializer = UserLoginSerializer(data=data)
 
         if serializer.is_valid():
             serializer.save()
             return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
-        
-        # This will now return the detailed validation errors from the serializer
-        return Response({'error': 'Registration failed', 'details': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
+        else:
+            # Print the specific validation errors from the serializer
+            print("Serializer errors:", serializer.errors)
+            return Response({'error': 'Registration failed', 'details': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 # class RegisterUserView(APIView):
 #     def post(self, request):
 #         data = request.data
