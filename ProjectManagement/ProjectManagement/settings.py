@@ -57,6 +57,7 @@ MIDDLEWARE = [
 
 
 ROOT_URLCONF = 'ProjectManagement.urls'
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     "https://projectmanagement-gc4a.vercel.app",
 ]
