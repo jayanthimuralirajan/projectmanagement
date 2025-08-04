@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+
 import os
 import dj_database_url
 from pathlib import Path
@@ -21,6 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# Add your SECRET_KEY environment variable here
+SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-for-local-dev')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -43,10 +46,12 @@ INSTALLED_APPS = [
     'TaskManagement',
 
 ]
+
+# THIS IS THE CORRECT ORDER FOR MIDDLEWARE ON RENDER
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware', # <-- THIS IS THE CORRECT POSITION
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,12 +60,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 ROOT_URLCONF = 'ProjectManagement.urls'
-CORS_ALLOW_ALL_ORIGINS = True
+
+# The correct CORS configuration for production
 CORS_ALLOWED_ORIGINS = [
     "https://projectmanagement-gc4a.vercel.app",
 ]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -83,19 +89,6 @@ WSGI_APPLICATION = 'ProjectManagement.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'taskManagement',
-#         'USER': 'postgres',
-#         'PASSWORD': 'Arhaticyogi10)$',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-# In a development environment (local), use your local settings
-# In production, Render provides a DATABASE_URL environment variable
 DATABASE_URL = os.environ.get("DATABASE_URL")
 DATABASES = {
     'default': dj_database_url.config(
@@ -103,6 +96,7 @@ DATABASES = {
         conn_max_age=600
     )
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -137,12 +131,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
