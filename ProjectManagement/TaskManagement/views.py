@@ -4,6 +4,11 @@ from rest_framework import status
 from django.contrib.auth.hashers import make_password, check_password
 from .models import UserLogin,Task
 from .serializers import UserLoginSerializer,TaskSerializer
+from django.http import JsonResponse
+
+
+def health_check(request):
+    return JsonResponse({"status": "OK"})
 
 class TaskView(APIView):
     def get(self, request):

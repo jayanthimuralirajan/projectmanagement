@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from TaskManagement.views import RegisterUserView, LoginUserView, TaskView, EmployeeView
+from TaskManagement.views import RegisterUserView, LoginUserView, TaskView, EmployeeView,health_check
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,5 +14,6 @@ urlpatterns = [
     path('api/tasks/<int:task_id>/', TaskView.as_view(), name='task-detail'),
     path('api/employees/', EmployeeView.as_view(), name='employee-list-create'),
     path('api/employees/<int:pk>/', EmployeeView.as_view(), name='employee-detail-update-delete'),
+    path('api/test/', health_check),
 ]
 
