@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path
+from django.http import JsonResponse
 from TaskManagement.views import RegisterUserView, LoginUserView, TaskView, EmployeeView,health_check
 
 urlpatterns = [
@@ -15,5 +16,7 @@ urlpatterns = [
     path('api/employees/', EmployeeView.as_view(), name='employee-list-create'),
     path('api/employees/<int:pk>/', EmployeeView.as_view(), name='employee-detail-update-delete'),
     path('api/test/', health_check),
+    path('api/ping/', lambda request: JsonResponse({'ping': 'pong'})),
+
 ]
 
