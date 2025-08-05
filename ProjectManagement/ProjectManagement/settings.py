@@ -9,7 +9,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-for-local-dev')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['projectmanagement-tyik.onrender.com']
+ALLOWED_HOSTS = [
+    'projectmanagement-1ylk.onrender.com',
+    'projectmanagement-tyik.onrender.com',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
