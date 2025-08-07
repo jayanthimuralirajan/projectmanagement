@@ -5,7 +5,7 @@ from corsheaders.defaults import default_headers
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-for-local-dev')
+SECRET_KEY = "*hzb_c_mghc*gil_g@2t7=#)spc--!)b2bu^!4@0m%4$kl=wng"
 
 DEBUG = False
 
