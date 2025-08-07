@@ -58,14 +58,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ProjectManagement.wsgi.application'
 
-DATABASE_URL = os.environ.get("DATABASE_URL")
+# DATABASE_URL = os.environ.get("DATABASE_URL")
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=DATABASE_URL,
-        conn_max_age=600
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=DATABASE_URL,
+#         conn_max_age=600
+#     )
+# }
+DATABASES = {} 
+DATABASES["default"]=dj_database_url.parse("postgresql://taskmanagement_x8zn_user:PULPbL6RoncFMIzcQhhuvRwL4S6Ly2jv@dpg-d2a2jler433s73a11dng-a.frankfurt-postgres.render.com/taskmanagement_x8zn")
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
