@@ -58,7 +58,7 @@ ROOT_URLCONF = 'ProjectManagement.urls'
 
 # The correct CORS configuration for production
 CORS_ALLOWED_ORIGINS = [
-    "https://projectmanagement-alpha.vercel.app/",
+    "https://projectmanagement-alpha.vercel.app",
 ]
 
 TEMPLATES = [
