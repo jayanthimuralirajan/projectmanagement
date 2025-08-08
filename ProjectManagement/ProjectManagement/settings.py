@@ -19,6 +19,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-for-local-dev')
 # DEBUG should be False in production
 DEBUG = False
 
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True  # ⚠️ Only for testing — remove in production!
 
 # ALLOWED_HOSTS for your Render deployment
 
@@ -57,9 +60,9 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'ProjectManagement.urls'
 
 # The correct CORS configuration for production
-CORS_ALLOWED_ORIGINS = [
-    "https://projectmanagement-alpha.vercel.app",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "https://projectmanagement-alpha.vercel.app",
+# ]
 
 TEMPLATES = [
     {
