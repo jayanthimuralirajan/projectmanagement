@@ -30,9 +30,9 @@ ChartJS.register(
   Title
 );
 
+const API_URL = "https://projectmanagement-ty1k.onrender.com/api/tasks/";
+const EMPLOYEE_API_URL = "https://projectmanagement-ty1k.onrender.com/api/employees/";
 
-const API_URL = "http://localhost:8000/tasks/";
-const EMPLOYEE_API_URL = "http://localhost:8000/employees/";
 
 const TaskManager = () => {
   const [tasks, setTasks] = useState([]);
