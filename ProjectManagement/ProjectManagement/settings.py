@@ -21,7 +21,8 @@ DEBUG = False
 
 
 # ALLOWED_HOSTS for your Render deployment
-ALLOWED_HOSTS = ['projectmanagement-tyik.onrender.com', 'projectmanagement-1ylk.onrender.com']
+
+ALLOWED_HOSTS = ['projectmanagement-ty1k.onrender.com']
 
 # Application definition
 
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'ProjectManagement.urls'
 
 # The correct CORS configuration for production
 CORS_ALLOWED_ORIGINS = [
-    "https://projectmanagement-gc4a.vercel.app",
+    "https://projectmanagement-alpha.vercel.app/",
 ]
 
 TEMPLATES = [

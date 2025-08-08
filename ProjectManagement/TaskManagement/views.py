@@ -53,6 +53,7 @@ class RegisterUserView(APIView):
 
         # Print the raw data received from the frontend
         print("Received data from frontend:", data)
+      
 
         if 'userName' not in data or 'emailId' not in data or 'password' not in data:
             return Response({'error': 'Email and password are required'}, status=status.HTTP_400_BAD_REQUEST)
@@ -70,6 +71,8 @@ class RegisterUserView(APIView):
             # Print the specific validation errors from the serializer
             print("Serializer errors:", serializer.errors)
             return Response({'error': 'Registration failed', 'details': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        print("Serializer errors:", serializer.errors)
+
 # class RegisterUserView(APIView):
 #     def post(self, request):
 #         data = request.data
